@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Input } from "../../components/core";
 import { Button } from "../../components/core/Button/Button";
-import { User } from "./types";
+import { User } from "./../../types/types";
 
 const LoginWrapper = styled.div`
   display: flex;
@@ -61,7 +61,7 @@ export default function LoginPage() {
   const onButtonClickHandler = (event: React.MouseEvent<HTMLElement>) => {
     if (user.password === passwordConfirmation) {
       localStorage.setItem("user", JSON.stringify(user));
-      router.push('/dashboard')
+      router.push("/dashboard");
     } else {
       setError(true);
     }
