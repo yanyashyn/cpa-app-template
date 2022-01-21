@@ -1,0 +1,5 @@
+body, html, #__next {
+    font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
+      'Arial', sans-serif;
+    height: 100%;
+  }
