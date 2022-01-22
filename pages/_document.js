@@ -1,30 +1,23 @@
-import Document from "next/document";
-import { ServerStyleSheet } from "styled-components";
+import Document from 'next/document'
+import * as React from 'react'
+import { renderStatic } from '../shared/renderer'
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
-    const sheet = new ServerStyleSheet();
-    const originalRenderPage = ctx.renderPage;
-
-    try {
-      ctx.renderPage = () =>
-        originalRenderPage({
-          enhanceApp: (App) => (props) =>
-            sheet.collectStyles(<App {...props} />),
-        });
-
-      const initialProps = await Document.getInitialProps(ctx);
-      return {
-        ...initialProps,
-        styles: (
-          <>
-            {initialProps.styles}
-            {sheet.getStyleElement()}
-          </>
-        ),
-      };
-    } finally {
-      sheet.seal();
-    }
+    const page = await ctx.renderPage();
+    const { css, ids } = await renderStatic(page.html);
+    const initialProps = await Document.getInitialProps(ctx);
+    return {
+      ...initialProps,
+      styles: (
+        <React.Fragment>
+          {initialProps.styles}
+          <style
+            data-emotion={`css ${ids.join(" ")}`}
+            dangerouslySetInnerHTML={{ __html: css }}
+          />
+        </React.Fragment>
+      ),
+    };
   }
 }

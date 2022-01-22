@@ -2,7 +2,7 @@ import { route } from "next/dist/server/router";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import { Input } from "../../components/core";
 import { Button } from "../../components/core/Button/Button";
 import { User } from "./../../types/types";
